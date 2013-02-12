@@ -10,7 +10,7 @@ tarpath = sys.argv[2]
 
 patchelf = "patchelf"
 basepath = "./%s" % tarpath
-command = r'ldd %s | grep -oE "=> /[^(]*" | sort | grep -oE "/[^(]*"' % exefile
+command = r'ldd %s | sort | grep -oE "=> /[^(]*" | grep -oE "/[^(]*"' % exefile
 linkerpath = "linker"
 libpath = "libs"
 
@@ -30,7 +30,7 @@ os.system("cp -L %s %s" % (exefile, basepath))
 newexefile = "%s%s" % (basepath, exefile[exefile.rindex('/'):])
 
 print "modify rpath"
-os.system("%s --set-rpath ./%s %s" % (patchelf, libpath, newexefile))
+os.system("%s --force-rpath --set-rpath ./%s %s" % (patchelf, libpath, newexefile))
 
 linker = os.popen("%s --print-interpreter %s" % (patchelf, exefile)).read().strip()
 os.system("cp -L %s %s/%s" % (linker, basepath, linkerpath))
