@@ -30,7 +30,7 @@ os.system("cp -L %s %s" % (exefile, basepath))
 newexefile = "%s%s" % (basepath, exefile[exefile.rindex('/'):])
 
 print "modify rpath"
-os.system("%s --force-rpath --set-rpath ./%s %s" % (patchelf, libpath, newexefile))
+os.system(r"%s --force-rpath --set-rpath \$ORIGIN/%s %s" % (patchelf, libpath, newexefile))
 
 linker = os.popen("%s --print-interpreter %s" % (patchelf, exefile)).read().strip()
 os.system("cp -L %s %s/%s" % (linker, basepath, linkerpath))
@@ -39,7 +39,7 @@ print "linker:", linker
 os.chdir(basepath)
 print "modify linker"
 newlinker = "./%s%s" % (linkerpath, linker[linker.rindex('/'):])
-os.system("%s --set-interpreter %s .%s" % (patchelf, newlinker, newexefile))
+os.system(r"%s --set-interpreter %s .%s" % (patchelf, newlinker, newexefile))
 
 os.chdir("../")
 print "create tar"
