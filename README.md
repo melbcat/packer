@@ -1,14 +1,15 @@
 packer
 ======
-Packer is a simple python script to pack linux program and needed .so libraries into a single .tar.gz files for distribution.
-
-To use packer, you must have patchelf "https://github.com/NixOS/patchelf" installed in your $PATH.
+Packer is a simple python script to pack a linux program and all needed .so libraries into a single .tar.gz files for easy distribution.
 
 usage
 ------
-usage: ./packer.py exefile tarpath
+Before you run the python script, you need to compile patchelf "https://github.com/NixOS/patchelf" first. Just chdir into the patchelf folder and use "g++ patchelf.cc -O3 -o patchelf" to compile it.
 
-example: ./packer.py ~/test pack, 
+usage: ./packer.py elfname tarname
+	elfname: the elf binary file to patch
+	tarname: the final package name
+	eg: ./packer.py /bin/ls pack
 
 which will generate pack.tar.gz:
 
@@ -16,15 +17,11 @@ which will generate pack.tar.gz:
 
 ----libs(folder, used for rpath)
 
-----linker(folder, used for interpreter)
+----loader(folder, used for interpreter)
 
-----test(elf file)
+----pack.sh(script to run with the original interpreter)
 
-note
-------
+----pack(elf file)
 
-If the target os has different interpreter with your own os, you should run your program in one of the following ways:
-
-1. cd to the exefile path and run it, e.g. cd pack && ./test
-2. use the interpreter explicitly, e.g ./pack/linker/ld-XXXX.so ./pack/test
+If the target system have the same interpreter with the host system, you can run the elf file 'pack'. If not, you can use pack.sh to force to use the original interpreter to load the program. If you are not sure about this, you can always use pack.sh. When you use pack.sh, all the args will be passed to the real program 'pack'.
 
