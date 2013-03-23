@@ -20,7 +20,7 @@ loaderpath = "loader"
 libpath = "libs"
 
 print "test"
-if !os.path.isfile(patchelf):
+if not os.path.isfile(patchelf):
 	print "You should compile patchelf first!"
 	print "You can read README for more information."
 	sys.exit(-1)
@@ -54,7 +54,7 @@ print "loader:", loader
 print "create script"
 shname = "%s/%s.sh" % (basepath, elfonly)
 os.system(r"echo '#!/bin/sh' > %s" % shname)
-os.system(r"echo './%s%s .%s $@' >> %s" % (loaderpath, loader[loader.rindex('/'):], elfonly, shname))
+os.system(r"echo '`dirname $0`/%s%s `dirname $0`%s $@' >> %s" % (loaderpath, loader[loader.rindex('/'):], elfonly, shname))
 os.system("chmod +x %s" % shname)
 
 os.chdir(tmppath)
