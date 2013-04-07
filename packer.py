@@ -14,7 +14,7 @@ tarname = sys.argv[2]
 tmppath = "TEMP_PATH"
 basepath = "./%s/%s" % (tmppath, tarname)
 
-patchelf = "./patchelf/patchelf"
+patchelf = "%s/patchelf/patchelf" % os.path.split(os.path.realpath(__file__))[0]
 command = r'ldd %s | sort | grep -oE "=> /[^(]*" | grep -oE "/[^(]*"' % elfname
 loaderpath = "loader"
 libpath = "libs"
