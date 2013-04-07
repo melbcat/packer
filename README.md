@@ -4,7 +4,7 @@ Packer is a simple python script to pack a linux program and all needed .so libr
 
 usage
 ------
-Before you run the python script, you need to compile patchelf "https://github.com/NixOS/patchelf" first. Just chdir into the patchelf folder and use "g++ patchelf.cc -O3 -o patchelf" to compile it.
+Before you run the python script, you need to compile patchelf "https://github.com/NixOS/patchelf" first. Just chdir into the patchelf folder and use "make" to compile it.
 
 usage: ./packer.py elfname tarname
 	elfname: the elf binary file to patch
@@ -23,5 +23,5 @@ which will generate pack.tar.gz:
 
 ----pack(elf file)
 
-If the target system have the same interpreter with the host system, you can run the elf file 'pack'. If not, you can use pack.sh to force to use the original interpreter to load the program. If you are not sure about this, you can always use pack.sh. When you use pack.sh, all the args will be passed to the real program 'pack'.
+If the target system have the same interpreter with the host system, you can run the elf file 'pack' directly. If not, you can use 'pack.sh' to force to use the original interpreter to load the program. If you are not sure about this, you can always use 'pack.sh'. When you use 'pack.sh', all the args will be passed to the real program 'pack'.
 
