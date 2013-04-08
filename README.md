@@ -1,15 +1,13 @@
 packer
 ======
-Packer is a simple python script to pack a linux program and all needed .so libraries into a single .tar.gz files for easy distribution.
+Packer is a simple bash script to pack a linux program and all needed .so libraries into a single .tar.gz files for easy distribution.
 
 usage
 ------
-Before you run the python script, you need to compile patchelf "https://github.com/NixOS/patchelf" first. Just chdir into the patchelf folder and use "make" to compile it.
-
-usage: ./packer.py elfname tarname
+usage: ./packer.sh elfname tarname
 	elfname: the elf binary file to patch
 	tarname: the final package name
-	eg: ./packer.py /bin/ls pack
+	eg: ./packer.sh /bin/ls pack
 
 which will generate pack.tar.gz:
 
